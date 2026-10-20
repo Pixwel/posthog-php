@@ -160,9 +160,9 @@ class PostHogTest extends TestCase
         );
     }
 
-    public function testGetFeatureFlagDefault()
+    public function testGetFeatureFlagReturnsNullWhenDecideOmitsRequestedFlag()
     {
-        $this->assertEquals(PostHog::getFeatureFlag('blah', 'user-id'), null);
+        $this->assertNull(PostHog::getFeatureFlag('blah', 'user-id'));
     }
 
     public function testGetFeatureFlagGroups()
