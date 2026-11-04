@@ -86,7 +86,12 @@ class FeatureFlag
     private static function hash($key, $distinctId, $salt = "")
     {
         $hashKey = sprintf("%s.%s%s", $key, $distinctId, $salt);
-        $hashVal = base_convert(substr(sha1(utf8_encode($hashKey)), 0, 15), 16, 10);
+        // Preserve utf8_encode()'s Latin-1 conversion so existing flag assignments stay stable.
+        $hashKey = preg_replace_callback('/[\x80-\xff]/', static function ($match) {
+            $byte = ord($match[0]);
+            return chr(0xc0 | ($byte >> 6)) . chr(0x80 | ($byte & 0x3f));
+        }, $hashKey);
+        $hashVal = base_convert(substr(sha1($hashKey), 0, 15), 16, 10);
 
         return $hashVal / LONG_SCALE;
     }

@@ -8,6 +8,7 @@ use PostHog\Test\Assets\MockedResponses;
 class MockedHttpClient extends \PostHog\HttpClient
 {
     private $flagEndpointResponse;
+    public $calls = [];
 
     public function __construct(
         string $host,

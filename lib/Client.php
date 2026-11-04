@@ -69,7 +69,7 @@ class Client
         string $apiKey,
         array $options = [],
         ?HttpClient $httpClient = null,
-        string $personalAPIKey = null
+        ?string $personalAPIKey = null
     ) {
         $this->apiKey = $apiKey;
         $this->personalAPIKey = $personalAPIKey;

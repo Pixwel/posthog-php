@@ -13,6 +13,9 @@ use PostHog\SizeLimitedHash;
 
 class FeatureFlagMatch extends TestCase
 {
+    private $client;
+    private $http_client;
+
     public function setUp(): void
     {
         date_default_timezone_set("UTC");
